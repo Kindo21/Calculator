@@ -31,15 +31,90 @@ function inputTwo(){
     document.getElementById("input").value = num1Array.reduce((previousVaue, 
         currentValue)=> previousVaue + currentValue);
     
-}  
+} 
+function inputThree(){
+    let one = "3";
+    num1Array.push(one);
+    document.getElementById("input").value = num1Array.reduce((previousVaue, 
+        currentValue)=> previousVaue + currentValue);
+        
+}
+function inputFour(){
+    let one = "4";
+    num1Array.push(one);
+    document.getElementById("input").value = num1Array.reduce((previousVaue, 
+        currentValue)=> previousVaue + currentValue);
+        
+}
+function inputFive(){
+    let one = "5";
+    num1Array.push(one);
+    document.getElementById("input").value = num1Array.reduce((previousVaue, 
+        currentValue)=> previousVaue + currentValue);
+        
+}
+function inputSix(){
+    let one = "6";
+    num1Array.push(one);
+    document.getElementById("input").value = num1Array.reduce((previousVaue, 
+        currentValue)=> previousVaue + currentValue);
+        
+}
+function inputSeven(){
+    let one = "7";
+    num1Array.push(one);
+    document.getElementById("input").value = num1Array.reduce((previousVaue, 
+        currentValue)=> previousVaue + currentValue);
+        
+}
+function inputEight(){
+    let one = "8";
+    num1Array.push(one);
+    document.getElementById("input").value = num1Array.reduce((previousVaue, 
+        currentValue)=> previousVaue + currentValue);
+        
+}
+function inputNine(){
+    let one = "9";
+    num1Array.push(one);
+    document.getElementById("input").value = num1Array.reduce((previousVaue, 
+        currentValue)=> previousVaue + currentValue);
+        
+}
+function inputZero(){
+    let one = "0";
+    num1Array.push(one);
+    document.getElementById("input").value = num1Array.reduce((previousVaue, 
+        currentValue)=> previousVaue + currentValue);
+        
+}
+ 
 
 /** Need to add logic to take whats in the input field and set to first variable */
 /**operators will have to use same function */
-function operator() {
+function addition() {
      let user1 = document.getElementById("input").value + " + "
      console.log(user1);
      num1Array = []
      return result = user1;
+}
+function subtraction() {
+    let user1 = document.getElementById("input").value + " - "
+    console.log(user1);
+    num1Array = []
+    return result = user1;
+}
+function multiplication() {
+    let user1 = document.getElementById("input").value + " * "
+    console.log(user1);
+    num1Array = []
+    return result = user1;
+}
+function division() {
+    let user1 = document.getElementById("input").value + " / "
+    console.log(user1);
+    num1Array = []
+    return result = user1;
 }
 
 /**basically convert the logic I have now into an object and to do this
@@ -67,6 +142,8 @@ function Clear() {
     num1Array = []
 }
 
+//need to build own function to do evaluations 
+
 function equal(){
     num1Array = []
     let user2 = document.getElementById("input").value
@@ -76,7 +153,57 @@ function equal(){
     console.log(result);
 }
 
-
+function solve(str) {
+    var expressionIndex = Math.max(str.lastIndexOf("-"), str.lastIndexOf("+"));
+    if (expressionIndex === -1) {
+      expressionIndex = Math.max(str.lastIndexOf("*"), str.lastIndexOf("/"));
+    }
+    if (expressionIndex === -1) {
+      var num = Number.parseInt(str.trim());
+      if (isNaN(num)) {
+        throw Exception("not a valid number");
+      } else {
+        return num;
+      }
+    } else {
+      var leftVal = solve(str.substring(0, expressionIndex).trim());
+      var rightVal = solve(str.substring(expressionIndex + 1).trim());
+      switch (str[expressionIndex]) {
+        case "+":
+          return leftVal + rightVal;
+        case "-":
+          return leftVal - rightVal;
+        case "*":
+          return leftVal * rightVal;
+        case "/":
+          return leftVal / rightVal;
+      }
+    }
+  }
+  
+  function parse(str) {
+    var expressionIndex = Math.max(str.lastIndexOf("-"), str.lastIndexOf("+"));
+    if (expressionIndex === -1) {
+      expressionIndex = Math.max(str.lastIndexOf("*"), str.lastIndexOf("/"));
+    }
+    if (expressionIndex === -1) {
+      var num = Number.parseInt(str.trim());
+      if (isNaN(num)) {
+        throw Exception("not a valid number");
+      } else {
+        return { type: "number", value: num };
+      }
+    } else {
+      var leftNode = parse(str.substring(0, expressionIndex).trim());
+      var rightNode = parse(str.substring(expressionIndex + 1).trim());
+      return {
+        type: "expression",
+        value: str[expressionIndex],
+        left: leftNode,
+        right: rightNode
+      };
+    }
+  }
 
 function add(num1, num2){
     let result =  num1 + num2
